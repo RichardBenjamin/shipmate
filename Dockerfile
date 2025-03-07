@@ -1,6 +1,9 @@
 # Use an official Node.js runtime as a parent image
 FROM node:16
 
+# Install additional dependencies
+RUN apk add --no-cache python3 g++ make && npm install -g typescript
+
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
