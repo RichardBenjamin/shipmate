@@ -1,0 +1,4 @@
+{"level":"info","message":"This is an info message"}
+{"level":"error","message":"This is an error message"}
+{"level":"info","message":"server running on 0.0.0.0:5000"}
+{"code":"28P01","file":"auth.c","length":109,"level":"error","line":"329","name":"error","routine":"auth_failed","severity":"FATAL"}
