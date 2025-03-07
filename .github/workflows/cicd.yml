@@ -15,9 +15,11 @@ jobs:
 
       - name: Login to Docker Hub
         run: docker login -u Kene38 -p Ihifix@Docker281
-        
+
       - name: Build the Docker image
-        run: docker build -t kene38/shipmate .
+        # run: docker build -t kene38/shipmate .
+        run: docker build -t kene38/shipmate -f ./Dockerfile .
+
   
       - name: Push your Docker Image
         run: docker push kene38/shipmate
