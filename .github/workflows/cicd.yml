@@ -1,29 +1,30 @@
-name: CI/CD Pipeline
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        run: docker login -u Kene38 -p Ihifix@Docker281
-
-      - name: Print working directory 
-        run: pwd
-
-      - name: Build the Docker image
-        # run: docker build -t kene38/shipmate .
-        run: docker build -t kene38/shipmate -f ./Dockerfile .
-
-  
-      - name: Push your Docker Image
-        run: docker push kene38/shipmate
-
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm start
